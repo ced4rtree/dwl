@@ -105,7 +105,7 @@ LIBINPUT_CONFIG_TAP_MAP_LMR -- 1/2/3 finger tap maps to left/middle/right
 static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TAP_MAP_LRM;
 
 /* If you want to use the windows key for MODKEY, use WLR_MODIFIER_LOGO */
-#define MODKEY WLR_MODIFIER_ALT
+#define MODKEY WLR_MODIFIER_LOGO
 
 #define TAGKEYS(KEY,SKEY,TAG) \
 	{ MODKEY,                    KEY,            view,            {.ui = 1 << TAG} }, \
@@ -120,13 +120,16 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 static const char *termcmd[] = { "foot", NULL };
 static const char *menucmd[] = { "bemenu-run", NULL };
 static const char *emacscmd[] = { "emacsclient", "-c", "-a", "emacs", NULL };
+static const char *quitcmd[] = { "pkill", "dwl", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
-    { MODKEY,                    XKB_KEY_e,          spawn,          {.v = emacscmd }},
+    { MODKEY,                    XKB_KEY_e,          spawn,          {.v = emacscmd} },
 	{ MODKEY,                    XKB_KEY_r,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
+    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Escape,     spawn,          {.v = quitcmd} },
+	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
