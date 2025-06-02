@@ -120,6 +120,11 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 static const char *termcmd[] = { "foot", NULL };
 static const char *menucmd[] = { "bemenu-run", NULL };
 static const char *emacscmd[] = { "emacsclient", "-c", "-a", "emacs", NULL };
+static const char *quitcmd[] = { "pkill", "dwl", NULL };
+static const char *volupcmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",
+                                  "&&", "pkill", "-RTMIN+1", NULL };
+static const char *voldowncmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",
+                                    "&&", "pkill", "-RTMIN+1", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
