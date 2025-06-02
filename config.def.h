@@ -125,6 +125,10 @@ static const char *volupcmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", 
                                   "&&", "pkill", "-RTMIN+1", NULL };
 static const char *voldowncmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",
                                     "&&", "pkill", "-RTMIN+1", NULL };
+static const char *brightupcmd[] = { "brightnessctl", "set", "5%+",
+                                    "&&", "pkill", "-RTMIN+2", NULL };
+static const char *brightdowncmd[] = { "brightnessctl", "set", "5%-",
+                                    "&&", "pkill", "-RTMIN+2", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -132,6 +136,11 @@ static const Key keys[] = {
     { MODKEY,                    XKB_KEY_e,          spawn,          {.v = emacscmd }},
 	{ MODKEY,                    XKB_KEY_r,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
+    { MODKEY,         XKB_KEY_XF86AudioRaiseVolume,  spawn,          {.v = volupcmd} },
+    { MODKEY,         XKB_KEY_XF86AudioLowerVolume,  spawn,          {.v = voldowncmd} },
+    { MODKEY,         XKB_KEY_XF86MonBrightnessUp,   spawn,          {.v = brightupcmd} },
+    { MODKEY,         XKB_KEY_XF86MonBrightnessDown, spawn,          {.v = brightdowncmd} },
+    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Escape,     spawn,          {.v = quitcmd} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
