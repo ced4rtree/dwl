@@ -134,10 +134,10 @@ static const char *termcmd[] = { "foot", NULL };
 static const char *menucmd[] = { "bemenu-run", NULL };
 static const char *emacscmd[] = { "emacsclient", "-c", "-a", "emacs", NULL };
 static const char *quitcmd[] = { "pkill", "dwl", NULL };
-static const char *volupcmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",
-                                  "&&", "pkill", "-RTMIN+1", "someblocks", NULL };
-static const char *voldowncmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",
-                                    "&&", "pkill", "-RTMIN+1", "someblocks", NULL };
+static const char *volupcmd[] = { "~/.local/bin/setvol", "up", NULL };
+static const char *voldowncmd[] = { "~/.local/bin/setvol", "down", NULL };
+static const char *brightupcmd[] = { "~/.local/bin/setbacklight", "up", NULL };
+static const char *brightdowncmd[] = { "~/.local/bin/setbacklight", "down", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -145,9 +145,11 @@ static const Key keys[] = {
     { MODKEY,                    XKB_KEY_e,          spawn,          {.v = emacscmd} },
 	{ MODKEY,                    XKB_KEY_r,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
+    { 0,              XKB_KEY_XF86AudioRaiseVolume,  spawn,          {.v = volupcmd} },
+    { 0,              XKB_KEY_XF86AudioLowerVolume,  spawn,          {.v = voldowncmd} },
+    { 0,              XKB_KEY_XF86MonBrightnessUp,   spawn,          {.v = brightupcmd} },
+    { 0,              XKB_KEY_XF86MonBrightnessDown, spawn,          {.v = brightdowncmd} },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Escape,     spawn,          {.v = quitcmd} },
-	{ 0,              XKB_KEY_XF86AudioLowerVolume, spawn,          {.v = voldowncmd} },
-	{ 0,              XKB_KEY_XF86AudioRaiseVolume, spawn,          {.v = volupcmd} },
 	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
